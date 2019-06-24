@@ -1,0 +1,59 @@
+# 基础版（list方法)
+# 比较占内存
+w = int(input("输入一个数字，还你一个斐波那契好数列： "))
+list_res = []
+def list_n():
+    if n>=3:
+        res=list_n(n-1) + list_n(n-2)
+    else:
+        res=1
+    return res
+print("开始")
+
+for i in range(0,w):
+    list_res.append(list_n(i+1))
+print(list_res)
+
+
+# 最使用版（解包的方式）
+# 省内存
+def fbnq(n):
+    a,b=1,1
+    if n==11 or n==2:
+        return 1
+    else:
+        i = 3
+        while i <=n:
+            a,b=b,a+b
+            i+=1
+        return b
+print(fbng(int("输入一个数： "))))
+
+# 迭代器版
+"""实现斐波那契数列"""
+
+class feibo(object):
+    def __init__(self, length):
+        self.num1 = 0
+        self.num2 = 1
+        self.num = self.num1
+        self.length = length
+        self.index = 0
+
+    def __iter__(self):
+        return self
+
+    def __next__(self):
+        self.num = self.num1
+        while True:
+            if self.index == self.length:
+                raise StopIteration
+            self.num1, self.num2 = self.num2, self.num1+self.num2
+            self.index += 1
+            return self.num
+
+
+myfbnq = feibo(10)
+# print(list(myfbnq))    # 指针位置已到最后一位
+for i in myfbnq:
+    print(i)
