@@ -1,0 +1,34 @@
+class Student():
+    def __init__(self,name,age):
+        self.name = name
+        self.age = age
+    def name1(self):
+        print("It's name is: {}.".format(self.name))
+    def name(self):
+        print("It's name is: {}.".format(self.name))
+    def age1(self):
+        print("It's age is: {}.".format(self.age))
+stu = Student("Bili", 18)
+
+print(stu.name)                                      # 打印名字Bili
+print("*******111111*********")
+stu.age                                              # 只是一个数字，没有代码表示需要做什么操作
+print("*******222222********")
+print("My student's name is " + stu.name + ".")      # 正常运行程序
+print("*******333333********")
+stu.name1()                                          # 
+print("*******444444********")
+sut.name()                                           # 如果name命名不改变，也就是说self.name和下面的def name()一样的时候，就会报错。
+                                                     # 所以为了避免这种问题发生，需要方法的命名，不要跟参数的命名一样。
+'''
+运行结果如下：
+
+Bili
+*******111111*********
+*******222222********
+My student's name is Bili.
+*******333333********
+It's name is: Bili.
+*******444444********
+builtins.TypeError: 'str' object is not callable
+'''
