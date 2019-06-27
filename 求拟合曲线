@@ -1,0 +1,90 @@
+import numpy as np
+from scipy import optimize
+from matplotlib import pyplot as plt
+
+'''
+power数组元素的n次方，两个参数的列数必须相同
+exp为返回e的n次方
+'''
+def func(param,x):
+    a,b,c=param
+    y=a*np.power(x,5)+b*np.exp(x)+c
+    return y
+
+def minfunc(param):
+    err_s=0
+    m,n=np.shape(data)
+    for i in range(m):
+        x=data[i,0]
+        y=func(param,x)
+        err_s+=data[i,1]-y
+    return err_s
+def conf0(p):
+    return data[0,1]-func(p, data[0,0])
+def conf1(p):
+    return data[1,1]-func(p, data[1,0])
+def conf2(p):
+    return data[2,1]-func(p, data[2,0])
+def conf3(p):
+    return data[3,1]-func(p, data[3,0])
+def conf4(p):
+    return data[4,1]-func(p, data[4,0])
+def conf5(p):
+    return data[5,1]-func(p, data[5,0])
+def conf6(p):
+    return data[6,1]-func(p, data[6,0])
+def conf7(p):
+    return data[7,1]-func(p, data[7,0])
+def conf8(p):
+    return data[8,1]-func(p, data[8,0])
+def conf9(p):
+    return data[9,1]-func(p, data[9,0])
+def conf10(p):
+    return data[10,1]-func(p, data[10,0])
+def constrainedfunc():
+    conf=[]
+    m,n=np.shape(data)
+    for i in range(m):   
+        
+        lambda_f=lambda p:data[i,1]-func(p, data[i,0])
+        conf.append({'type': 'ineq', 'fun': lambda_f})
+    return conf
+if __name__=='__main__':
+    param0=[1,1,0]
+    x=np.linspace(-2,2,11)
+    y=func(param0,x)+1*np.random.rand(11)
+    global data
+    data=np.zeros((11,2))
+    data[:,0]=x
+    data[:,1]=y
+    
+    p0=[2,2,-10]
+    #conf=constrainedfunc()
+    conf=({'type':'ineq', 'fun': conf0},
+          {'type':'ineq', 'fun': conf1},
+          {'type':'ineq', 'fun': conf2},
+          {'type':'ineq', 'fun': conf3},
+          {'type':'ineq', 'fun': conf4},
+          {'type':'ineq', 'fun': conf4},
+          {'type':'ineq', 'fun': conf4},
+          {'type':'ineq', 'fun': conf7},
+          {'type':'ineq', 'fun': conf8},
+          {'type':'ineq', 'fun': conf9},
+          {'type':'ineq', 'fun': conf10}        
+          
+          )
+    solution = optimize.minimize(minfunc,p0,method='SLSQP',constraints=conf)
+    print('solution.x:',solution.x)
+    
+    fit_y=func(solution.x, x)
+    print('origin_y:',y)
+    print('fit_y:',fit_y)
+    print(solution)
+    
+  
+    for f in conf:
+        print(f['fun'](solution.x))
+    plt.figure()
+    plt.plot(x,y,'g.-',x,fit_y,'b.-')    
+    plt.show()
+
