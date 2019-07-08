@@ -1,0 +1,37 @@
+import numpy as np
+import matplotlib.pyplot as plt
+
+
+x = [10,20,30,40,50,60,70,80]
+x = np.array(x)
+print('x is: \n',x)
+
+y = [174,236,305,334,349,351,342,323]
+y = np.array(y)
+print('y is: \n',y)
+
+#用多项式拟合,返回值为多项式对应的系数
+f1 = np.polyfit(x,y,3)
+print('多项式系数是: \n',f1)
+a,b,c,d = f1
+print('多项式系数是:a={},b={},c={},d={}'.format(a,b,c,d))
+
+# 多项式表达式ｐ１
+p1 = np.poly1d(f1)
+print('多项式表达式为：\n',p1)
+
+#多项式拟合的ｙ值
+yvals = np.polyval(f1, x)
+print('多项式拟合函数的ｙ值为：\n',yvals)
+
+
+#此方法是通过做多项式拟合，根据最小二乘法，得出拟合函数，但是不知道拟合的效果。
+# 可以计算拟合的误差值来看是否符合要求，例如，有些客户会要求拟合误差在某个范围以内，通过这个标准，来修改拟合函数的表达式，以达到符合客户要求的目的。
+#绘图
+plot1 = plt.plot(x,y,"s",label='original values')
+plot2 = plt.plot(x,yvals,'r',label='polyfit values')
+plt.xlabel('x')
+plt.ylabel('y')
+plt.legend(loc=1)
+plt.title('polyfitting')
+plt.show()
