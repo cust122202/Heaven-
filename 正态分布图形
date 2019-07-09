@@ -1,0 +1,37 @@
+import numpy as np
+from matplotlib import pyplot as plt
+
+# 定义正态分布函数
+def func(x,mu, sigma):
+    y = (1/(np.sqrt(2*np.pi)*sigma))*np.exp(-(x-mu)**2/(2*sigma**2))
+    return y
+# 通过变换，改成标准正态分布函数，需要将随机变量Ｘ变成(x-mu)/sigma
+#def func(x):
+    #y = (1/np.sqrt(2*np.pi))*np.exp(-x**2/sigma**2)
+    #return y
+
+mu = 0
+# 不同的ｓｉｇｍａ，对应的图形会有变化。
+sigma1 = 2
+sigma2 = 5
+#拐点为ｍｕ加减ｓｉｇｍａ
+print('InflectionPoint=mu+-sigma')
+
+
+x = np.linspace(-20,20,101)
+#y = (x-mu)/sigma
+y1 = func(x, mu, sigma1)
+y1_max = func(mu,mu,sigma1)
+print("y1_max={}".format(y1_max))
+y2 = func(x, mu, sigma2)
+y2_max = func(mu,mu,sigma2)
+print("y2_max={}".format(y2_max))
+#y = func(x)# 也可用变换后，将随机变量变为标准正态分布
+
+
+plot1 = plt.plot(x,y1,'r',label = 'sigma={}'.format(sigma1))
+plot2 = plt.plot(x,y2,'b',label = 'sigma={}'.format(sigma2))
+plt.xlabel = ('x')
+plt.ylabel = ('y')
+plt.title  = ('Gaussian Distribution')
+plt.show()
