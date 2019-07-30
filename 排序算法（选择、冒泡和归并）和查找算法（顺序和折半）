@@ -1,0 +1,19 @@
+'''
+按照从小到大的顺序排列
+'''
+
+def select_sort(origin_items, comp=lambda x, y: x < y):
+    """简单选择排序"""
+    items = origin_items[:]#定义一个数组
+    for i in range(len(items) - 1):#遍历数组。
+        min_index = i#取数组对应是数据序号为索引
+        for j in range(i + 1, len(items)):#遍历数组中ｉ后面的其他数据
+            if comp(items[j], items[min_index]):#将ｉ与之后的数据做对比
+                min_index = j
+        items[i], items[min_index] = items[min_index], items[i]#如果ｉ大于ｊ，则交换位置，否则不交换。
+    return items#所有元素遍历过后，返回排序后的数组
+
+def main():
+    origin_items = [1,4,23,543,64,7,47,84,456,234.23,52,634]
+    y = select_sort(origin_items)
+    print(y)
